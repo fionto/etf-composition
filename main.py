@@ -16,9 +16,6 @@ for _, row in df.head(20).iterrows():
     currency = row["Currency"]
     weight = row["Weighting"]
 
-    if currency in currencies:
-        currencies[currency] += weight
-    else:
-        currencies[currency] = weight
+    currencies[currency] = currencies.get(currency, 0) + weight
 
 print(currencies)
