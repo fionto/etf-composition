@@ -8,12 +8,10 @@ filepath = raw_datasets_dir / filename
 
 df = pd.read_excel(filepath, index_col=0)
 
-currencies = {}
-
-for _, row in df.head(20).iterrows():
-    currency = row["Currency"]
-    weight = row["Weighting"]
-
-    currencies[currency] = currencies.get(currency, 0) + weight
+currencies = (
+    df.groupby("Currency")["Weighting"]
+      .sum()
+      .to_dict()
+)
 
 print(currencies)
